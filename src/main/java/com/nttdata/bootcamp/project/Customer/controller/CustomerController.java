@@ -2,8 +2,8 @@ package com.nttdata.bootcamp.project.Customer.controller;
 
 import com.nttdata.bootcamp.project.Customer.dto.CustomerDtoRequest;
 import com.nttdata.bootcamp.project.Customer.dto.CustomerDtoResponse;
-import com.nttdata.bootcamp.project.Customer.service.CustomerService;
-import com.nttdata.bootcamp.project.Customer.service.CustomerTypeService;
+import com.nttdata.bootcamp.project.Customer.service.ICustomerService;
+import com.nttdata.bootcamp.project.Customer.service.ICustomerTypeService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,9 +19,9 @@ import reactor.core.publisher.Mono;
 @RefreshScope
 public class CustomerController {
     @Autowired
-    private CustomerService customerService;
+    private ICustomerService customerService;
     @Autowired
-    private CustomerTypeService customerTypeService;
+    private ICustomerTypeService customerTypeService;
     @GetMapping
     public Flux<CustomerDtoResponse> getCustomer()
     {
