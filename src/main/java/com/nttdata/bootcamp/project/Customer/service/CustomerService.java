@@ -3,7 +3,6 @@ package com.nttdata.bootcamp.project.Customer.service;
 import com.nttdata.bootcamp.project.Customer.dto.CustomerDtoRequest;
 import com.nttdata.bootcamp.project.Customer.dto.CustomerDtoResponse;
 import com.nttdata.bootcamp.project.Customer.infrastructure.ICustomerRepository;
-import com.nttdata.bootcamp.project.Customer.infrastructure.ICustomerTypeRepository;
 import com.nttdata.bootcamp.project.Customer.utils.CustomerMapper;
 import com.nttdata.bootcamp.project.Customer.utils.ICustomerMapper;
 import lombok.RequiredArgsConstructor;
@@ -24,21 +23,21 @@ import reactor.core.publisher.Mono;
 @RequiredArgsConstructor
 public class CustomerService implements ICustomerService<CustomerDtoRequest,CustomerDtoResponse>{
     @Autowired
-    private final ICustomerRepository customerRepository;
+    private final ICustomerRepository repository;
     @Value("${message.uri}")
     String uri;
     @Override
     public Flux<CustomerDtoResponse> getAll()
     {
         ICustomerMapper mapper = new CustomerMapper(uri);
-        return customerRepository.findAll()
+        return repository.findAll()
                 .map(mapper::toDtoResponse);
     }
     @Override
     public Mono<CustomerDtoResponse> getById(String id)
     {
         ICustomerMapper mapper = new CustomerMapper(uri);
-        return customerRepository.findById(id)
+        return repository.findById(id)
                 .map(mapper::toDtoResponse);
     }
     @Override
@@ -46,24 +45,24 @@ public class CustomerService implements ICustomerService<CustomerDtoRequest,Cust
     {
         ICustomerMapper mapper = new CustomerMapper(uri);
         return object.map(mapper::toEntity)
-                .flatMap(customerRepository::insert)
+                .flatMap(repository::insert)
                 .map(mapper::toDtoResponse);
     }
     @Override
     public Mono<CustomerDtoResponse> update(Mono<CustomerDtoRequest> object, String id)
     {
         ICustomerMapper mapper = new CustomerMapper(uri);
-        return customerRepository.findById(id)
+        return repository.findById(id)
                 .flatMap(
                         p -> object.map(mapper::toEntity)
                                 .doOnNext(e -> e.setId(id))
                 )
-                .flatMap(customerRepository::save)
+                .flatMap(repository::save)
                 .map(mapper::toDtoResponse);
     }
     @Override
     public Mono<Void> delete(String id)
     {
-        return customerRepository.deleteById(id);
+        return repository.deleteById(id);
     }
 }

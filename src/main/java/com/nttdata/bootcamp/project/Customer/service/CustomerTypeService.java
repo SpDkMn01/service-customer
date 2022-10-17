@@ -21,19 +21,19 @@ import reactor.core.publisher.Mono;
 @RequiredArgsConstructor
 public class CustomerTypeService implements ICustomerTypeService<CustomerTypeDto,CustomerTypeDto> {
     @Autowired
-    private final ICustomerTypeRepository customerTypeRepository;
+    private final ICustomerTypeRepository repository;
     @Override
     public Flux<CustomerTypeDto> getAll()
     {
         ICustomerTypeMapper mapper = new CustomerTypeMapper();
-        return customerTypeRepository.findAll()
+        return repository.findAll()
                 .map(mapper::toDto);
     }
     @Override
     public Mono<CustomerTypeDto> getById(String id)
     {
         ICustomerTypeMapper mapper = new CustomerTypeMapper();
-        return customerTypeRepository.findById(id)
+        return repository.findById(id)
                 .map(mapper::toDto);
     }
     @Override
@@ -41,24 +41,24 @@ public class CustomerTypeService implements ICustomerTypeService<CustomerTypeDto
     {
         ICustomerTypeMapper mapper = new CustomerTypeMapper();
         return object.map(mapper::toEntity)
-                .flatMap(customerTypeRepository::insert)
+                .flatMap(repository::insert)
                 .map(mapper::toDto);
     }
     @Override
     public Mono<CustomerTypeDto> update(Mono<CustomerTypeDto> object, String id)
     {
         ICustomerTypeMapper mapper = new CustomerTypeMapper();
-        return customerTypeRepository.findById(id)
+        return repository.findById(id)
                 .flatMap(
                         p -> object.map(mapper::toEntity)
                         .doOnNext(e -> e.setId(id))
                 )
-                .flatMap(customerTypeRepository::save)
+                .flatMap(repository::save)
                 .map(mapper::toDto);
     }
     @Override
     public Mono<Void> delete(String id)
     {
-        return customerTypeRepository.deleteById(id);
+        return repository.deleteById(id);
     }
 }
