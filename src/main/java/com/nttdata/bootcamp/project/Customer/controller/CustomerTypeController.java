@@ -2,6 +2,7 @@ package com.nttdata.bootcamp.project.Customer.controller;
 
 import com.nttdata.bootcamp.project.Customer.dto.CustomerTypeDto;
 import com.nttdata.bootcamp.project.Customer.service.CustomerTypeService;
+import com.nttdata.bootcamp.project.Customer.service.ICustomerTypeService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,7 @@ import reactor.core.publisher.Mono;
 @RefreshScope
 public class CustomerTypeController {
     @Autowired
-    private CustomerTypeService service;
+    private ICustomerTypeService service;
     @GetMapping
     public Flux<CustomerTypeDto> getAll()
     {
