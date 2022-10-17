@@ -3,7 +3,6 @@ package com.nttdata.bootcamp.project.Customer.controller;
 import com.nttdata.bootcamp.project.Customer.dto.CustomerDtoRequest;
 import com.nttdata.bootcamp.project.Customer.dto.CustomerDtoResponse;
 import com.nttdata.bootcamp.project.Customer.service.ICustomerService;
-import com.nttdata.bootcamp.project.Customer.service.ICustomerTypeService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,32 +18,30 @@ import reactor.core.publisher.Mono;
 @RefreshScope
 public class CustomerController {
     @Autowired
-    private ICustomerService customerService;
-    @Autowired
-    private ICustomerTypeService customerTypeService;
+    private ICustomerService service;
     @GetMapping
-    public Flux<CustomerDtoResponse> getCustomer()
+    public Flux<CustomerDtoResponse> getAll()
     {
-        return customerService.getAll();
+        return service.getAll();
     }
     @GetMapping(path="/{id}")
-    public Mono<CustomerDtoResponse> getCustomerType(@PathVariable String id)
+    public Mono<CustomerDtoResponse> getById(@PathVariable String id)
     {
-        return customerService.getById(id);
+        return service.getById(id);
     }
     @PostMapping
-    public Mono<CustomerDtoResponse> saveCustomer(@RequestBody Mono<CustomerDtoRequest> customerDtoRequest)
+    public Mono<CustomerDtoResponse> save(@RequestBody Mono<CustomerDtoRequest> requestMono)
     {
-        return customerService.save(customerDtoRequest);
+        return service.save(requestMono);
     }
     @PutMapping("/update/{id}")
-    public Mono<CustomerDtoResponse> updateCustomer(@RequestBody Mono<CustomerDtoRequest> CustomerDtoMono, @PathVariable String id)
+    public Mono<CustomerDtoResponse> update(@RequestBody Mono<CustomerDtoRequest> requestMono, @PathVariable String id)
     {
-        return customerService.update(CustomerDtoMono,id);
+        return service.update(requestMono,id);
     }
     @DeleteMapping("/delete/{id}")
-    public Mono<Void> deleteCustomer(@PathVariable String id)
+    public Mono<Void> delete(@PathVariable String id)
     {
-        return customerService.delete(id);
+        return service.delete(id);
     }
 }

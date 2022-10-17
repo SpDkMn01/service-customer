@@ -1,9 +1,9 @@
 package com.nttdata.bootcamp.project.Customer.service;
 
 import com.nttdata.bootcamp.project.Customer.dto.CustomerTypeDto;
+import com.nttdata.bootcamp.project.Customer.infrastructure.ICustomerTypeRepository;
 import com.nttdata.bootcamp.project.Customer.utils.CustomerTypeMapper;
 import com.nttdata.bootcamp.project.Customer.utils.ICustomerTypeMapper;
-import com.nttdata.bootcamp.project.Customer.infrastructure.ICustomerTypeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -19,27 +19,27 @@ public class CustomerTypeController {
     @Autowired
     private CustomerTypeService service;
     @GetMapping
-    public Flux<CustomerTypeDto> getCustomerTypes()
+    public Flux<CustomerTypeDto> getAll()
     {
         return service.getAll();
     }
     @GetMapping("/{id}")
-    public Mono<CustomerTypeDto> getCustomerType(@PathVariable String id)
+    public Mono<CustomerTypeDto> getById(@PathVariable String id)
     {
         return service.getById(id);
     }
     @PostMapping
-    public Mono<CustomerTypeDto> saveCustomerType(@RequestBody Mono<CustomerTypeDto> customerTypeDtoMono)
+    public Mono<CustomerTypeDto> save(@RequestBody Mono<CustomerTypeDto> customerTypeDtoMono)
     {
         return service.save(customerTypeDtoMono);
     }
     @PutMapping("/update/{id}")
-    public Mono<CustomerTypeDto> updateCustomerType(@RequestBody Mono<CustomerTypeDto> customerTypeDtoMono, @PathVariable String id)
+    public Mono<CustomerTypeDto> update(@RequestBody Mono<CustomerTypeDto> customerTypeDtoMono, @PathVariable String id)
     {
         return service.update(customerTypeDtoMono,id);
     }
     @DeleteMapping("/delete/{id}")
-    public Mono<Void> deleteCustomer(@PathVariable String id)
+    public Mono<Void> delete(@PathVariable String id)
     {
         return service.delete(id);
     }

@@ -15,7 +15,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CustomerDtoRequest {
-    private String id;
     private String firstname;
     private String lastname;
     private String customerTypeId;
