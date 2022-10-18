@@ -24,26 +24,28 @@ import reactor.core.publisher.Mono;
 public class CustomerService implements ICustomerService<CustomerDtoRequest,CustomerDtoResponse>{
     @Autowired
     private final ICustomerRepository repository;
+    @Autowired
+    private final ICustomerMapper mapper;
     @Value("${message.uri}")
     String uri;
     @Override
     public Flux<CustomerDtoResponse> getAll()
     {
-        ICustomerMapper mapper = new CustomerMapper(uri);
+        // ICustomerMapper mapper = new CustomerMapper(uri);
         return repository.findAll()
                 .map(mapper::toDtoResponse);
     }
     @Override
     public Mono<CustomerDtoResponse> getById(String id)
     {
-        ICustomerMapper mapper = new CustomerMapper(uri);
+        // ICustomerMapper mapper = new CustomerMapper(uri);
         return repository.findById(id)
                 .map(mapper::toDtoResponse);
     }
     @Override
     public Mono<CustomerDtoResponse> save(Mono<CustomerDtoRequest> object)
     {
-        ICustomerMapper mapper = new CustomerMapper(uri);
+        // ICustomerMapper mapper = new CustomerMapper(uri);
         return object.map(mapper::toEntity)
                 .flatMap(repository::insert)
                 .map(mapper::toDtoResponse);
@@ -51,7 +53,7 @@ public class CustomerService implements ICustomerService<CustomerDtoRequest,Cust
     @Override
     public Mono<CustomerDtoResponse> update(Mono<CustomerDtoRequest> object, String id)
     {
-        ICustomerMapper mapper = new CustomerMapper(uri);
+        // ICustomerMapper mapper = new CustomerMapper(uri);
         return repository.findById(id)
                 .flatMap(
                         p -> object.map(mapper::toEntity)
