@@ -9,7 +9,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 /**
  * <h1>CustomerType Entity</h1>
  * Esta clase representa la estructura de la colección "customerTypes"
- * @Author Grupo05
+ * @Author Grupo06
  * @version 1.0
  * @since 2022-10-14
  */

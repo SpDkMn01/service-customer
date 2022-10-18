@@ -4,31 +4,31 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 /**
- * <h1>IGeneralService</h1>
+ * <h1>IGeneral Service</h1>
  * Interface general con las principales funciones crud
- * @param <T>
- * @author Grupo05
+ * @param <T,R>
+ * @author Grupo06
  * @version 1.0
  * @since 2022-10-14
  */
 public interface IGeneralService <T,R>{
     /**
      * Función generica que nos devuelve todos los objetos guardados en la coleccion segun el tipo T definido
-     * @return Flux<T>
+     * @return Flux<R>
      */
     Flux<R> getAll();
 
     /**
      * Función generica que solicita una cadena para usarla como id en la coleccion segun el tipo T definido
      * @param id representa el campo id de la coleccion
-     * @return   retorna una variable Mono<T>
+     * @return   retorna una variable Mono<R>
      */
     Mono<R> getById(String id);
 
     /**
      * Función generica que recibe un objeto del tipo Mono<T> para guardarlo en la colección segun el tipo T definido
      * @param object  Es variable del tipo Mono<T> para ser guardado en la collección
-     * @return        Retorna la misma variable Mono<T>
+     * @return        Retorna la misma variable Mono<R>
      */
     Mono<R> save(Mono<T> object);
 
@@ -36,7 +36,7 @@ public interface IGeneralService <T,R>{
      * Función generica que recibe un objeto del tipo Mono<T> para actualizarlo en la colección segun el tipo T definido
      * @param object  Es variable del tipo Mono<T> para ser actualizada en la collección
      * @param id      Representa el campo id de la coleccion que se va a editar
-     *@return         Retorna la misma variable Mono<T>
+     *@return         Retorna la misma variable Mono<R>
      */
     Mono<R> update(Mono<T> object, String id);
 

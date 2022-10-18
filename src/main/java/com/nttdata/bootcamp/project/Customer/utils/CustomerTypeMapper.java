@@ -2,8 +2,17 @@ package com.nttdata.bootcamp.project.Customer.utils;
 
 import com.nttdata.bootcamp.project.Customer.dto.CustomerTypeDto;
 import com.nttdata.bootcamp.project.Customer.entity.CustomerType;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
-
+import org.springframework.stereotype.Component;
+/**
+ * <h1>CustomerType Mapper</h1>
+ * @Author Grupo06
+ * @version 1.0
+ * @since 2022-10-18
+ */
+@RequiredArgsConstructor
+@Component
 public class CustomerTypeMapper implements ICustomerTypeMapper {
     @Override
     public CustomerTypeDto toDto(CustomerType customerType){

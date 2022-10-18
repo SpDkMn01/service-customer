@@ -5,7 +5,7 @@ spring:
     mongodb:
       database: bootcamp_customer_db
       host: localhost
-      port: 8092
+      port: 8900
   config:
     import: optional:configserver:http://localhost:8888
 management:
