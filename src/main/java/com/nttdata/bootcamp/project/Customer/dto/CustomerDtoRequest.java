@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 /**
  * <h1>CustomerDtoRequest</h1>
  * Esta clase representa el objeto de valor para los registro de Customer.
+ *
  * @author Grupo06
  * @version 1.0
  * @since 2022-10-14

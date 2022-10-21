@@ -13,8 +13,9 @@ import reactor.core.publisher.Mono;
 
 /**
  * <h1>Customer Controller</h1>
- * @Author Grupo06
+ *
  * @version 1.0
+ * @Author Grupo06
  * @since 2022-10-18
  */
 @Slf4j
@@ -25,29 +26,29 @@ import reactor.core.publisher.Mono;
 public class CustomerController {
     @Autowired
     private ICustomerService service;
+
     @GetMapping
-    public Flux<CustomerDtoResponse> getAll()
-    {
+    public Flux<CustomerDtoResponse> getAll() {
         return service.getAll();
     }
-    @GetMapping(path="/{id}")
-    public Mono<CustomerDtoResponse> getById(@PathVariable String id)
-    {
+
+    @GetMapping(path = "/{id}")
+    public Mono<CustomerDtoResponse> getById(@PathVariable String id) {
         return service.getById(id);
     }
+
     @PostMapping
-    public Mono<CustomerDtoResponse> save(@RequestBody Mono<CustomerDtoRequest> requestMono)
-    {
+    public Mono<CustomerDtoResponse> save(@RequestBody Mono<CustomerDtoRequest> requestMono) {
         return service.save(requestMono);
     }
+
     @PutMapping("/update/{id}")
-    public Mono<CustomerDtoResponse> update(@RequestBody Mono<CustomerDtoRequest> requestMono, @PathVariable String id)
-    {
-        return service.update(requestMono,id);
+    public Mono<CustomerDtoResponse> update(@RequestBody Mono<CustomerDtoRequest> requestMono, @PathVariable String id) {
+        return service.update(requestMono, id);
     }
+
     @DeleteMapping("/delete/{id}")
-    public Mono<Void> delete(@PathVariable String id)
-    {
+    public Mono<Void> delete(@PathVariable String id) {
         return service.delete(id);
     }
 }

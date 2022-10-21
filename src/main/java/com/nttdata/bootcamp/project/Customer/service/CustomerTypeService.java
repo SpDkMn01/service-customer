@@ -13,6 +13,7 @@ import reactor.core.publisher.Mono;
 /**
  * <h1>Customer Type Service</h1>
  * Esta clase tiene la finalidad de concentrar la logica necesaria para el CRUD de los objetos CustomerType
+ *
  * @author Grupo06
  * @version 1.0
  * @since 2022-10-14
@@ -20,44 +21,45 @@ import reactor.core.publisher.Mono;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class CustomerTypeService implements ICustomerTypeService<CustomerTypeDto,CustomerTypeDto> {
+public class CustomerTypeService implements ICustomerTypeService<CustomerTypeDto, CustomerTypeDto> {
     @Autowired
     private final ICustomerTypeRepository repository;
     @Autowired
     private final ICustomerTypeMapper mapper;
+
     @Override
-    public Flux<CustomerTypeDto> getAll()
-    {
+    public Flux<CustomerTypeDto> getAll() {
         return repository.findAll()
                 .map(mapper::toDto);
     }
+
     @Override
-    public Mono<CustomerTypeDto> getById(String id)
-    {
+    public Mono<CustomerTypeDto> getById(String id) {
         return repository.findById(id)
+                .switchIfEmpty(Mono.error(new Exception(id)))
                 .map(mapper::toDto);
     }
+
     @Override
-    public Mono<CustomerTypeDto> save(Mono<CustomerTypeDto> object)
-    {
+    public Mono<CustomerTypeDto> save(Mono<CustomerTypeDto> object) {
         return object.map(mapper::toEntity)
                 .flatMap(repository::insert)
                 .map(mapper::toDto);
     }
+
     @Override
-    public Mono<CustomerTypeDto> update(Mono<CustomerTypeDto> object, String id)
-    {
+    public Mono<CustomerTypeDto> update(Mono<CustomerTypeDto> object, String id) {
         return repository.findById(id)
                 .flatMap(
                         p -> object.map(mapper::toEntity)
-                        .doOnNext(e -> e.setId(id))
+                                .doOnNext(e -> e.setId(id))
                 )
                 .flatMap(repository::save)
                 .map(mapper::toDto);
     }
+
     @Override
-    public Mono<Void> delete(String id)
-    {
+    public Mono<Void> delete(String id) {
         return repository.deleteById(id);
     }
 }
