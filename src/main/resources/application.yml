@@ -4,10 +4,10 @@ spring:
   data:
     mongodb:
       database: bootcamp_customer_db
-      host: localhost
-      port: 8900
+      host: db_customer
+      port: 27017
   config:
-    import: optional:configserver:http://localhost:9080
+    import: optional:configserver:http://192.168.31.220:8002
 management:
   endpoints:
     web:
@@ -19,3 +19,7 @@ message:
   path-customer: /api/v1/customers
   path-customerType: /api/v1/customerTypes
   uri: /api/v1/customerTypes/
+eureka:
+  client:
+    service-url:
+      defaultZone: http://192.168.31.220:8000/eureka/
