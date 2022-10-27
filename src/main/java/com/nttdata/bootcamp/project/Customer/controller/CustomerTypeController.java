@@ -1,15 +1,20 @@
 package com.nttdata.bootcamp.project.Customer.controller;
 
-import com.nttdata.bootcamp.project.Customer.dto.CustomerTypeDto;
+import com.nttdata.bootcamp.project.Customer.dto.CustomerTypeDtoRequest;
+import com.nttdata.bootcamp.project.Customer.dto.CustomerTypeDtoResponse;
 import com.nttdata.bootcamp.project.Customer.service.ICustomerTypeService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+
+import javax.ws.rs.Produces;
 
 /**
  * <h1>Customer Type Controller</h1>
@@ -29,31 +34,28 @@ public class CustomerTypeController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
+    @Produces(MediaType.TEXT_EVENT_STREAM_VALUE)
     public Flux getAll() {
         return service.getAll();
     }
 
     @GetMapping("/{id}")
-    @ResponseStatus(HttpStatus.OK)
-    public Mono getById(@PathVariable String id) {
+    public Mono<ResponseEntity<CustomerTypeDtoResponse>> getById(@PathVariable String id) {
         return service.getById(id);
     }
 
     @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public Mono save(@RequestBody Mono<CustomerTypeDto> requestMono) {
+    public Mono<ResponseEntity<CustomerTypeDtoResponse>> save(@RequestBody Mono<CustomerTypeDtoRequest> requestMono) {
         return service.save(requestMono);
     }
 
     @PutMapping("/update/{id}")
-    @ResponseStatus(HttpStatus.OK)
-    public Mono update(@RequestBody Mono<CustomerTypeDto> requestMono, @PathVariable String id) {
+    public Mono<ResponseEntity<CustomerTypeDtoResponse>> update(@RequestBody Mono<CustomerTypeDtoRequest> requestMono, @PathVariable String id) {
         return service.update(requestMono, id);
     }
 
     @DeleteMapping("/delete/{id}")
-    @ResponseStatus(HttpStatus.OK)
-    public Mono<Void> delete(@PathVariable String id) {
+    public Mono<ResponseEntity<CustomerTypeDtoResponse>> delete(@PathVariable String id) {
         return service.delete(id);
     }
 }

@@ -1,5 +1,6 @@
 package com.nttdata.bootcamp.project.Customer.service;
 
+import org.springframework.http.ResponseEntity;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -26,7 +27,7 @@ public interface IGeneralService<T, R> {
      * @param id representa el campo id de la coleccion
      * @return retorna una variable Mono<R>
      */
-    Mono<R> getById(String id);
+    Mono<ResponseEntity<R>> getById(String id);
 
     /**
      * Función generica que recibe un objeto del tipo Mono<T> para guardarlo en la colección segun el tipo T definido
@@ -34,7 +35,7 @@ public interface IGeneralService<T, R> {
      * @param object Es variable del tipo Mono<T> para ser guardado en la collección
      * @return Retorna la misma variable Mono<R>
      */
-    Mono<R> save(Mono<T> object);
+    Mono<ResponseEntity<R>> save(Mono<T> object);
 
     /**
      * Función generica que recibe un objeto del tipo Mono<T> para actualizarlo en la colección segun el tipo T definido
@@ -43,7 +44,7 @@ public interface IGeneralService<T, R> {
      * @param id     Representa el campo id de la coleccion que se va a editar
      * @return Retorna la misma variable Mono<R>
      */
-    Mono<R> update(Mono<T> object, String id);
+    Mono<ResponseEntity<R>> update(Mono<T> object, String id);
 
     /**
      * Función generica que se encarga de eliminar un documento en la colección según el tipo T definido
@@ -51,5 +52,5 @@ public interface IGeneralService<T, R> {
      * @param id Representa el campo id de la coleccion que se va a editar
      * @return Retorna un Mono<Void>
      */
-    Mono<Void> delete(String id);
+    Mono<ResponseEntity<R>> delete(String id);
 }

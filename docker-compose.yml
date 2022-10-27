@@ -7,10 +7,3 @@ services:
       - "27017:27017"
     environment:
       - "MONGO_INITDB_DATABASE=bootcamp_customer_db"
-  ms-customer:
-    image: service-customer
-    container_name: service-customer
-    depends_on:
-      - db_customer
-    ports:
-      - "8003:8000"

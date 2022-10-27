@@ -7,9 +7,14 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+
+import javax.ws.rs.Produces;
 
 /**
  * <h1>Customer Controller</h1>
@@ -28,27 +33,29 @@ public class CustomerController {
     private ICustomerService service;
 
     @GetMapping
+    @ResponseStatus(HttpStatus.OK)
+    @Produces(MediaType.TEXT_EVENT_STREAM_VALUE)
     public Flux<CustomerDtoResponse> getAll() {
         return service.getAll();
     }
 
     @GetMapping(path = "/{id}")
-    public Mono<CustomerDtoResponse> getById(@PathVariable String id) {
+    public Mono<ResponseEntity<CustomerDtoResponse>> getById(@PathVariable String id) {
         return service.getById(id);
     }
 
     @PostMapping
-    public Mono<CustomerDtoResponse> save(@RequestBody Mono<CustomerDtoRequest> requestMono) {
+    public Mono<ResponseEntity<CustomerDtoResponse>> save(@RequestBody Mono<CustomerDtoRequest> requestMono) {
         return service.save(requestMono);
     }
 
     @PutMapping("/update/{id}")
-    public Mono<CustomerDtoResponse> update(@RequestBody Mono<CustomerDtoRequest> requestMono, @PathVariable String id) {
+    public Mono<ResponseEntity<CustomerDtoResponse>> update(@RequestBody Mono<CustomerDtoRequest> requestMono, @PathVariable String id) {
         return service.update(requestMono, id);
     }
 
     @DeleteMapping("/delete/{id}")
-    public Mono<Void> delete(@PathVariable String id) {
+    public Mono<ResponseEntity<CustomerDtoResponse>> delete(@PathVariable String id) {
         return service.delete(id);
     }
 }

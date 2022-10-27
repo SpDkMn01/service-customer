@@ -14,7 +14,6 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CustomerTypeDto {
-    private String id;
+public class CustomerTypeDtoRequest {
     private String description;
 }

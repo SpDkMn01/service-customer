@@ -1,6 +1,7 @@
 package com.nttdata.bootcamp.project.Customer.utils;
 
-import com.nttdata.bootcamp.project.Customer.dto.CustomerTypeDto;
+import com.nttdata.bootcamp.project.Customer.dto.CustomerTypeDtoRequest;
+import com.nttdata.bootcamp.project.Customer.dto.CustomerTypeDtoResponse;
 import com.nttdata.bootcamp.project.Customer.entity.CustomerType;
 
 /**
@@ -11,7 +12,10 @@ import com.nttdata.bootcamp.project.Customer.entity.CustomerType;
  * @since 2022-10-18
  */
 public interface ICustomerTypeMapper {
-    CustomerTypeDto toDto(CustomerType customerType);
+    CustomerType toEntity(CustomerTypeDtoRequest customerTypeDtoRequest);
 
-    CustomerType toEntity(CustomerTypeDto customerTypeDto);
+    CustomerType toEntity(CustomerTypeDtoResponse customerTypeDtoResponse);
+
+    CustomerTypeDtoResponse toDtoResponse(CustomerType customerType);
+
 }
